@@ -1,23 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from "react";
+import Counter from "./components/Counter";
+import ClassCounter from "./components/ClassCounter";
+import "./styles/App.css";
+import PostItem from "./components/PostItem";
+import PostList from "./components/PostList";
+import MyButton from "./components/UI/Button/MyButton";
+import MyInput from "./components/UI/Input/MyInput";
+import { useRef } from "react";
+import PostForm from "./components/PostForm";
+import MySelect from "./components/UI/Select/MySelect";
+import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/MyModal/MyModal";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 function App() {
+  const [posts, setPosts] = useState([
+    { id: 1, title: "фы 1", body: "йу" },
+    { id: 2, title: "ав 2", body: "яч" },
+    { id: 3, title: "цу 3", body: "ми" },
+  ]);
+
+  const [filter, setFilter] = useState({ sort: "", query: "" });
+  const [modal, setModal] = useState(false);
+
+  const sortedPosts = useMemo(() => {
+    console.log("ОТРАБОТАЛА ФУНКЦИЯ СОРТЕД ПОСТС!!!!");
+    if (filter.sort) {
+      return [...posts].sort((a, b) =>
+        a[filter.sort].localeCompare(b[filter.sort])
+      );
+    }
+    return posts;
+  }, [filter.sort, posts]);
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter((post) =>
+      post.title.toLowerCase().includes(filter.query)
+    );
+  }, [filter.query, sortedPosts]);
+
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+    setModal(false);
+  };
+
+  const removePost = (post) => {
+    setPosts(posts.filter((p) => p.id !== post.id));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MyButton style={{ marginTop: 30 }} onClick={() => setModal(true)}>
+        Создать Пользователя
+      </MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
+      <hr style={{ margin: "15px 0" }} />
+      <PostFilter filter={filter} setFilter={setFilter} />
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Посты"
+      />
     </div>
   );
 }
