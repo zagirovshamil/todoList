@@ -1,9 +1,10 @@
+/* Стили к основной страничке */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+/* Положение страницы */
 #root {
   display: flex;
   justify-content: center;
@@ -12,7 +13,8 @@
 .App {
   width: 860px;
 }
-
+/* Стили к компонентам */
+/* Пост */
 .post {
   display: flex;
   padding: 15px;
@@ -21,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
 }
-
+/* Выезд поста при создании */
 .post-enter {
   transform: translateX(-250px);
 }
@@ -32,6 +34,7 @@
 .post-exit {
   opacity: 1;
 }
+/* Пост уезжает после удаления */
 .post-exit-active {
   transform: translateX(-250px);
   transition: all 500ms ease-in;

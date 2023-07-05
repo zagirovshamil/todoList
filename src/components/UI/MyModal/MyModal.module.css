@@ -1,3 +1,4 @@
+/* Стили к модальному окну */
 .myModal {
   position: fixed;
   top: 0;
@@ -7,14 +8,14 @@
   display: none;
   background: rgba(0, 0, 0, 0.5);
 }
-
+/* Контент часть */
 .myModalContent {
   padding: 25px;
   background: white;
   border-radius: 16px;
   min-width: 250px;
 }
-
+/* в состоянии active */
 .myModal.active {
   display: flex;
   justify-content: center;
