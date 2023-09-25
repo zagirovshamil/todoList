@@ -1,6 +1,5 @@
 import React from "react";
 import cl from './MyModal.module.css'
-// Модальное окно
 
 const MyModal = ({children, visible, setVisible}) => {
 
