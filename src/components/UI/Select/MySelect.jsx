@@ -1,8 +1,5 @@
 import React from "react";
-//
-// Сортировка 
-// Передаются пропсы для сортировки по имени и названию, 
-// в дальнейшем можно дополнить в зависимости от исходных данных
+
 const MySelect = ({options, defaultValue, value, onChange}) => {
     return(
         <select 
